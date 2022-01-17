@@ -4,21 +4,24 @@
   "description": "Port mapping with UPnP and NAT-PMP",
   "main": "index.js",
   "scripts": {
-    "test": "standard"
+    "build": "esbuild --bundle --outdir=dist --format=cjs --platform=node index.js",
+    "test": "uvu -r esbuild-register tests"
   },
   "engines": {
     "node": ">=10.0.0"
   },
   "dependencies": {
-    "async": "^3.2.0",
     "debug": "^4.2.0",
-    "default-gateway": "^6.0.2",
-    "request": "^2.88.2",
-    "unordered-array-remove": "^1.0.2",
-    "xml2js": "^0.1.0"
+    "default-gateway": "^6.0.3",
+    "esno": "^0.14.0",
+    "fast-xml-parser": "^4.0.1"
   },
   "devDependencies": {
-    "standard": "^16.0.0"
+    "@types/node": "^17.0.8",
+    "esbuild": "^0.14.11",
+    "esbuild-register": "^3.3.2",
+    "typescript": "^4.5.4",
+    "uvu": "^0.5.3"
   },
   "author": {
     "name": "Alex",
