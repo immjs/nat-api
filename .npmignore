@@ -1,0 +1,4 @@
+*.yaml
+tests/
+.github/
+tsconfig.json
