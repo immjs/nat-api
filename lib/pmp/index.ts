@@ -36,7 +36,7 @@ export async function createPmpClient(gateway: string) {
   return client
 }
 
-export interface PmpPortMappingOptions {
+export interface PmpMapOptions {
   type: 'tcp' | 'udp'
   /**
    * Private port
@@ -57,7 +57,7 @@ export class PmpClient extends EventEmitter {
     super()
   }
 
-  portMapping(opts: PmpPortMappingOptions) {
+  map(opts: PmpMapOptions) {
     // debug('Client#portMapping()')
     let opcode: number
     switch (String(opts.type || 'tcp').toLowerCase()) {
@@ -73,10 +73,10 @@ export class PmpClient extends EventEmitter {
     return this._request(opcode, opts)
   }
 
-  portUnmapping(opts: PmpPortMappingOptions) {
+  unmap(opts: PmpMapOptions) {
     // debug('Client#portUnmapping()')
     opts.ttl = 0
-    return this.portMapping(opts)
+    return this.map(opts)
   }
 
   externalIp() {
@@ -93,7 +93,7 @@ export class PmpClient extends EventEmitter {
   /**
    * Queues a UDP request to be send to the gateway device.
    */
-  private _request(op: number, obj?: PmpPortMappingOptions) {
+  private _request(op: number, obj?: PmpMapOptions) {
     // debug('Client#request()', [op, obj])
 
     let buf: Buffer
@@ -155,7 +155,7 @@ export class PmpClient extends EventEmitter {
         throw new Error('Invalid opcode: ' + op)
     }
     // assert.equal(pos, size, 'buffer not fully written!')
-    this._promise = this._promise.finally(() => new Promise<void>((resolve, reject) => {
+    const promise = new Promise<void>((resolve, reject) => {
       this.socket.once('error', (err) => {
         reject(err)
         if (this.socket) {
@@ -189,7 +189,7 @@ export class PmpClient extends EventEmitter {
         // Error
         if (resultCode !== 0) {
           const err = new Error(resultMessage)
-          err.code = resultCode
+          Object.assign(err, { code: resultCode })
           reject(err)
         } else {
           switch (op) {
@@ -215,7 +215,9 @@ export class PmpClient extends EventEmitter {
         }
       })
       this.socket.send(buf, 0, buf.length, SERVER_PORT, this.gateway)
-    }))
+    })
+    this._promise = this._promise.finally(() => promise)
+    return promise
   }
 }
 

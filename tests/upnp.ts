@@ -1,4 +1,4 @@
-import { test, exec } from 'uvu'
+import { test } from 'uvu'
 import assert from 'uvu/assert'
 import { createUpnpClient } from '../lib/upnp'
 

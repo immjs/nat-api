@@ -20,7 +20,7 @@ export interface Address {
   port: number
 }
 
-export interface PortMapOptions {
+export interface UpnpMapOptions {
   description?: string
   protocol?: 'tcp' | 'udp'
   public: Address | number | string
@@ -31,7 +31,7 @@ export interface PortMapOptions {
   ttl?: number
 }
 
-export interface PortUnmapOptions {
+export interface UpnpUnmapOptions {
   protocol?: 'tcp' | 'udp'
   public: Address | number | string
 }
@@ -67,7 +67,7 @@ export class UpnpClient {
     this._destroyed = false
   }
 
-  async portMapping(options: PortMapOptions) {
+  async map(options: UpnpMapOptions) {
     if (this._destroyed) throw new Error('client is destroyed')
 
     const { device, address } = await this.findGateway()
@@ -99,7 +99,7 @@ export class UpnpClient {
     })
   }
 
-  async portUnmapping(options: PortUnmapOptions) {
+  async unmap(options: UpnpUnmapOptions) {
     if (this._destroyed) throw new Error('client is destroyed')
 
     const { device } = await this.findGateway()

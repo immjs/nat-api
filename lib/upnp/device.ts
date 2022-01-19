@@ -86,7 +86,7 @@ function getAllServicesDevices(device: DeviceInfo) {
 export class Device {
   services: string[]
 
-  private device?: Device
+  private device?: DeviceInfo
   private lastUpdate: number = 0
   private ttl: number = 60 * 1000
   private baseUrl: string = ''
@@ -117,7 +117,7 @@ export class Device {
 
     const info = new fxparser.XMLParser().parse(data)
 
-    const device = info.root.device as Device
+    const device = info.root.device as DeviceInfo
 
     if (!device) {
       throw new Error(`Invalid router device service! ${data.toString()}`)
