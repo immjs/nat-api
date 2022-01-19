@@ -10,6 +10,8 @@ export async function createUpnpClient() {
   return client
 }
 
+export const ERROR_GATEWAY_NOTFOUND = "GatewayNotFound"
+
 export interface GetMappingOptions {
   local?: boolean
   description?: string | RegExp
@@ -209,7 +211,7 @@ export class UpnpClient {
 
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(function () {
-        reject(new Error('timeout'))
+        reject(Object.assign(new Error('Fail to find gateway. Maybe your router does not support upnp!'), { error: ERROR_GATEWAY_NOTFOUND }))
       }, this.timeout)
       p.then(({ info, address }) => {
         resolve({ address, device: new Device(info.location) })
