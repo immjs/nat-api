@@ -38,13 +38,13 @@ export async function createSsdp(options: { sourcePort?: number, interface?: str
     });
   }
 
-  const socket = await Object.entries(interfaces)
+  const socket = await Promise.any(Object.entries(interfaces)
     .flatMap(
       ([iface, infos]) =>
         infos
           ?.filter((info) => !info.internal && (!options.interface || iface === options.interface))
           .map((item) => createSocket(item)) || [],
-    )[0];
+    ));
 
   return new Ssdp(
     sourcePort,
