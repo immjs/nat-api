@@ -2,8 +2,8 @@
   "version": "1.0.2",
   "name": "@immjs/nat-api",
   "description": "Port mapping with UPnP and NAT-PMP",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/lib/index.js",
+  "types": "./dist/lib/index.d.ts",
   "scripts": {
     "build:type": "tsc --project tsconfig.json",
     "build": "npm run build:cjs && npm run build:esm && npm run build:type",
