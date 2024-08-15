@@ -22,30 +22,30 @@ npm install @xmcl/nat-api
 ## Usage
 
 ```js
-const { createUpnpClient } = require('nat-api')
+const { createUpnpClient } = require('nat-api');
 
-const client = await createUpnpClient()
+const client = await createUpnpClient();
 
 // map 25565 to 25565 for 1 min:
 await client.map({
-  description: "Mapped by @xmcl/nat-api",
+  description: 'Mapped by @xmcl/nat-api',
   protocol: 'tcp',
   public: 25565,
   private: 25565,
   ttl: 60 * 1000,
-})
+});
 
 // Unmap port public and private port 25565 with TCP by default
-await client.unmap({ port: 25565 })
+await client.unmap({ port: 25565 });
 
 // Get external IP
-const mappings = await client.getMappings()
+const mappings = await client.getMappings();
 
 // see existed mappings
-console.log(mappings)
+console.log(mappings);
 
 // Destroy client
-client.destroy()
+client.destroy();
 ```
 
 ## API
@@ -57,7 +57,6 @@ See type definition in typescript.
 - http://miniupnp.free.fr/nat-pmp.html
 - http://wikipedia.org/wiki/NAT_Port_Mapping_Protocol
 - http://tools.ietf.org/html/draft-cheshire-nat-pmp-03
-
 
 ## License
 
