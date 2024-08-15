@@ -26,7 +26,7 @@ async function createSsdp(options = {}) {
                     socket.close();
                     // Force trigger onClose() - 'close()' does not guarantee to emit 'close'
                 }
-                throw e;
+                reject(e);
             });
             // socket.address = interf.address
             socket.bind(sourcePort, interf.address);
