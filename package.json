@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "name": "@immjs/nat-api",
   "description": "Port mapping with UPnP and NAT-PMP",
   "main": "./dist/lib/index.js",
