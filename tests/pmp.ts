@@ -7,7 +7,7 @@ import { createPmpClient } from '../lib/pmp';
 test('pmp', async () => {
   const interfaces = networkInterfaces();
   console.log(interfaces);
-  const gateway = await defaultGateWay.v4();
+  const gateway = await defaultGateWay.gateway4async();
   console.log(gateway);
 
   const client = await createPmpClient(gateway.gateway);
